@@ -1,4 +1,4 @@
-/*demo.lex*/
+/*little_lexer.l*/
 %{
     #include "stdio.h"
     #include "stdlib.h"
@@ -8,7 +8,6 @@
     int chars = 0;
     FILE *fin;  //读取文件
 %}
-
 DIGIT [0-9]
 INTEGER [1-9][0-9]*|0
 DECIMAL {INTEGER}.{DIGIT}+
