@@ -8,9 +8,10 @@
     int chars = 0;
     FILE *fin;  //读取文件
 %}
+
 DIGIT [0-9]
 INTEGER [1-9][0-9]*|0
-DECIMAL {INTEGER}.{DIGIT}+
+DECIMAL {INTEGER}\.{DIGIT}+
 LETTER [a-zA-Z]
 ID  [a-z]({LETTER}|_|{DIGIT})*
 SYMBOL ("|"|"&"|"~"|"^"|"&&"|"||"|"!"|"%"|\+|\-|"*"|"/"|"<="|">="|"<"|">"|"=="|":="|"!="|"("|")"|"{"|"}"|"["|"]"|\;)
@@ -30,8 +31,8 @@ TYPEID (Int|Float|Bool|Void)
 {SYMBOL} {printf("#%d: %s \n",line,yytext);     chars+= yyleng;}        //匹配运算符(包括赋值)
 {NAME} {printf("#name %s \n",yytext);     chars+= yyleng;}        //匹配名称
 {CAPTION} {chars+=yyleng;}
-{ID} {printf("#%d: OBJECTED %s \n",line,yytext);    chars+= yyleng;}    //匹配变量
-{INTEGER} {printf("#%d: CONST %s\n",line,yytext);    chars+= yyleng;}     //整形常量(加法无法提取)
+{ID} {printf("#%d: OBJECTED %s \n",line,yytext);    chars+= yyleng;}    //匹配变量（x4会输出xxxx）
+{INTEGER} {printf("#%d: CONST %s \n",line,yytext);    chars+= yyleng;}     //整形常量(如果后面存在分号时无法提取)
 {DECIMAL} {printf("#%d: CONST %s\n",line,yytext);    chars+= yyleng;}     //浮点常量
 ("%f"|"%s"|"%lld")  {printf("#%d: %s \n",line,yytext);   chars+= yyleng;}
 . {++chars;}
@@ -48,7 +49,7 @@ int main(){
         if(str[i]!=' ' && str[i]!= '\t' && str[i]!= '\n'){
             IsLastchar = 1;
         }
-        else if(IsLastchar == true){
+        else if(IsLastchar == 1){
             ++words;
             IsLastchar = 0;
         }
