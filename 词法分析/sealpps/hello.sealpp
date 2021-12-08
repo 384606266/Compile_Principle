@@ -1,0 +1,23 @@
+# hello.sealpp
+
+Int func max(Int a, Int y)
+{
+    # return the maxer 
+    if x > y
+    {
+        return x;
+    }
+    else 
+    {
+        return y;
+    }
+}
+
+Void func main(){
+    Int x1:=93;
+    Int X2:= 78;
+    Int max_e := max(x1,x2);
+    fprintf(stdout,"%lld",max_e);
+    return;
+}
+
