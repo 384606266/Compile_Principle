@@ -1,6 +1,6 @@
 # Compile_Principle
 
-The homework of principle of compile (SJTU IS301), including 3 parts:
+The homework of principle of compile (SJTU IS203), including 3 parts:
 
 * lexical analysis
 * Parsing
