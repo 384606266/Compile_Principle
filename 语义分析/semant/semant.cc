@@ -249,7 +249,7 @@ void BreakStmt_class::check(Symbol type) {
         semant_error(this) << "break must be in a loop"<<endl;
 }
 
-//检查函数调用，print函数作业要求有矛盾
+//检查函数调用
 Symbol Call_class::checkType(){
     if (!isValidCallName(name)) {       //内置print函数
         if (!actuals->more(0))
@@ -258,14 +258,9 @@ Symbol Call_class::checkType(){
         else{
             for (int i = actuals->first(); actuals->more(i); i = actuals->next(i)) 
                 actuals->nth(i)->checkType();
-
-            //判断第一个参数是否为stdout和stderr.
-            if(!strcmp((actuals->nth(0))->type->get_string() , "stdout") == 0  && 
-               !strcmp((actuals->nth(0))->type->get_string() , "stderr") == 0)
-                semant_error(this)<<"function fprintf must have stdout or stderr as first parameter.";    
             
-            if (!sameType((actuals->nth(1))->getType(), String)) 
-                semant_error(this)<<"function fprintf must have string as Second parameter."<< endl;
+            if (!sameType((actuals->nth(0))->getType(), String)) 
+                semant_error(this)<<"function printf must have string as first parameter."<< endl;
         }
         setType(Void);
         return type;
